@@ -1,0 +1,14 @@
+#
+FROM python:alpine
+RUN apk add curl
+RUN pip install redis
+RUN pip install requests
+COPY entrypoint.sh /bin/
+#COPY entrypoint.sh /.
+#COPY . /bin/
+COPY envconsul /bin/
+#COPY envconsul /.
+COPY worker.py /.
+ENTRYPOINT ["entrypoint.sh"]
+#CMD ["--env","prod","--svc","worker","python","worker.py"]
+CMD ["python","worker.py"]

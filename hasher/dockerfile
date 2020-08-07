@@ -1,0 +1,12 @@
+#
+FROM ruby:alpine
+RUN apk add --update build-base curl
+RUN gem install sinatra
+RUN gem install thin
+RUN apk add curl
+COPY entrypoint.sh /bin/
+COPY envconsul /bin/
+COPY hasher.rb /.
+ENTRYPOINT ["entrypoint.sh"]
+CMD ["ruby","hasher.rb"]
+EXPOSE ${SRVHASHERPORT}

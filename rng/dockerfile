@@ -1,0 +1,12 @@
+#
+FROM python:alpine
+RUN pip install flask
+RUN apk add curl
+COPY entrypoint.sh /bin/
+##COPY entrypoint.sh /.
+COPY envconsul /bin/
+COPY rng.py /.
+ENTRYPOINT ["entrypoint.sh"]
+#CMD ["--svc","rng","python","rng.py"]
+CMD ["python","rng.py"]
+EXPOSE ${SRVRNGPORT}
